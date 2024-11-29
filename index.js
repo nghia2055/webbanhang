@@ -26,12 +26,7 @@ const app = express();
 // fix
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "http://127.0.0.1:3000",
-      "http://localhost:3001",
-      "https://web-ban-hang-gamma.vercel.app",
-    ], // Cho phép cả hai origin
+    origin: [`${process.env.URL_NEXTJS_LOCAL}`, `${process.env.URL_NEXTJS}`], // Cho phép cả hai origin
     credentials: true, // Cho phép gửi cookie hoặc header Authorization
   })
 );
