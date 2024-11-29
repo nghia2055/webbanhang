@@ -24,27 +24,22 @@ mongoose
 const app = express();
 
 // fix
-const allowedOrigins = [
-  "http://localhost:3000", // Nếu bạn đang phát triển cục bộ
-  "https://web-ban-hang-lovat.vercel.app",
-  "https://web-ban-hang-liart.vercel.app",
-  "http://127.0.0.1:3000",
-  // URL của frontend trên Vercel
-  "http://localhost:3001",
-  "http://127.0.0.1:3001",
-];
+// const allowedOrigins = [
+//   "http://localhost:3000", // Nếu bạn đang phát triển cục bộ
+//   "https://web-ban-hang-lovat.vercel.app",
+//   "https://web-ban-hang-liart.vercel.app",
+//   "http://127.0.0.1:3000",
+//   // URL của frontend trên Vercel
+//   "http://localhost:3001",
+//   "http://127.0.0.1:3001",
+// ];
 
 // Cấu hình middleware CORS
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true, // Cho phép cookie
+    origin: "https://web-ban-hang-liart.vercel.app/",
+    optionsSuccessStatus: 200,
+    credentials: true,
   })
 );
 
