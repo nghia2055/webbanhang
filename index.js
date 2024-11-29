@@ -40,6 +40,7 @@ app.use(
     origin: "https://web-ban-hang-liart.vercel.app",
     optionsSuccessStatus: 200,
     credentials: true,
+    methods: ["GET", "POST"],
   })
 );
 
