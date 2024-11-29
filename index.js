@@ -30,7 +30,7 @@ app.use(
       "http://localhost:3000",
       "http://127.0.0.1:3000",
       "http://localhost:3001",
-      "https://web-ban-hang-gamma.vercel.app/",
+      "https://web-ban-hang-gamma.vercel.app",
     ], // Cho phép cả hai origin
     credentials: true, // Cho phép gửi cookie hoặc header Authorization
   })
