@@ -24,19 +24,36 @@ mongoose
 const app = express();
 
 // fix
+const allowedOrigins = [
+  "http://localhost:3000", // Nếu bạn đang phát triển cục bộ
+  "https://web-ban-hang-lovat.vercel.app",
+  "http://127.0.0.1:3000",
+  // URL của frontend trên Vercel
+  "http://localhost:3001",
+  "http://127.0.0.1:3001",
+];
+
+// Cấu hình middleware CORS
 app.use(
   cors({
-    origin: [`${process.env.URL_NEXTJS_LOCAL}`, `${process.env.URL_NEXTJS}`], // Cho phép cả hai origin
-    credentials: true, // Cho phép gửi cookie hoặc header Authorization
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // Cho phép cookie
   })
 );
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Route
 app.get("/", (req, res) => {
-  res.send("nghia");
+  res.json("nghia");
 });
 app.use("/addProduct", routeProduct);
 app.use("/register", routeRegisterUser);
