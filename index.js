@@ -27,6 +27,7 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:3000", // Nếu bạn đang phát triển cục bộ
   "https://web-ban-hang-lovat.vercel.app",
+  "https://web-ban-hang-liart.vercel.app",
   "http://127.0.0.1:3000",
   // URL của frontend trên Vercel
   "http://localhost:3001",
