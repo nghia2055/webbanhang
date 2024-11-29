@@ -30,7 +30,7 @@ app.use(
       "http://localhost:3000",
       "http://127.0.0.1:3000",
       "http://localhost:3001",
-      "https://web-ban-hang-eight.vercel.app/",
+      "https://web-ban-hang-gamma.vercel.app/",
     ], // Cho phép cả hai origin
     credentials: true, // Cho phép gửi cookie hoặc header Authorization
   })
@@ -40,6 +40,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Route
+app.get("/", (req, res) => {
+  res.send("nghia");
+});
 app.use("/addProduct", routeProduct);
 app.use("/register", routeRegisterUser);
 app.use("/login", routeLogin);
