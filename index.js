@@ -37,7 +37,7 @@ const app = express();
 // Cấu hình middleware CORS
 app.use(
   cors({
-    origin: "https://web-ban-hang-liart.vercel.app/",
+    origin: "https://web-ban-hang-liart.vercel.app",
     optionsSuccessStatus: 200,
     credentials: true,
   })
