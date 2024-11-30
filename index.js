@@ -41,8 +41,8 @@ app.get("/", (req, res) => {
   res.json("nghia");
 });
 
-app.post("login", (req, res) => {
-  res.json("hahaha");
+app.post("/login/nghia", (req, res) => {
+  res.json("hah");
 });
 app.use("/addProduct", routeProduct);
 app.use("/register", routeRegisterUser);
