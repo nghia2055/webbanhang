@@ -25,7 +25,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://webbanhangfrotend.vercel.app", // hoặc '*' để cho phép tất cả các domain
+    origin: "https://webbanhangfrotend.vercel.app", // Chỉ cho phép yêu cầu từ domain này
+    credentials: true, // Cho phép gửi thông tin xác thực (cookies, headers, etc.)
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
