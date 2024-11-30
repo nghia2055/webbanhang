@@ -9,7 +9,8 @@ const dotenv = require("dotenv");
 const { routeMenu } = require("./route/menu/menu");
 dotenv.config();
 
-const dbURI = "mongodb://localhost:27017/NEXTJS-ECOM"; // Địa chỉ MongoDB trên localhost
+const dbURI =
+  "mongodb+srv://dtn04999:HYXLI8lOVW9PFkr5@cluster0.jp8rc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"; // Địa chỉ MongoDB trên localhost
 
 // Kết nối MongoDB
 mongoose
