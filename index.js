@@ -40,6 +40,10 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.json("nghia");
 });
+
+app.post("login", (req, res) => {
+  res.json("hahaha");
+});
 app.use("/addProduct", routeProduct);
 app.use("/register", routeRegisterUser);
 app.use("/login", routeLogin);
