@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 const jsonwebtoken = require("jsonwebtoken");
 
 const login = async (req, res) => {
-  res.json("nhảy vào rồi nè");
   try {
     const user = await registerUser.findOne({ email: req.body.email });
     if (!user) {
