@@ -26,8 +26,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: `${process.env.URL_NEXTJS}}`, // Cho phép tất cả các domain
-    credentials: true, // Các header cho phép
+    origin: `*`,
   })
 );
 
