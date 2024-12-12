@@ -7,7 +7,8 @@ const register = async (req, res) => {
     const hashed = await bcrypt.hash(req.body.password, salt);
 
     // create new user
-    const newUser = await new registerUser({
+    const newUser = new registerUser({
+      user: req.body.user,
       email: req.body.email,
       password: hashed,
     });
@@ -17,9 +18,9 @@ const register = async (req, res) => {
   } catch (err) {
     if (err.code === 11000) {
       // Kiểm tra lỗi trùng lặp
-      return res.status(400).json("Email already exists");
+      return res.status(400).json("Email đã tồn tại");
     }
-    res.status(500).json(err);
+    res.status(400).json("Người dùng đã tồn tại");
   }
 };
 
