@@ -26,7 +26,7 @@ const login = async (req, res) => {
       };
 
       const accessToken = jsonwebtoken.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: "15m",
+        expiresIn: "1h",
       });
       const refresh_Token = jsonwebtoken.sign(
         payload,
@@ -36,15 +36,15 @@ const login = async (req, res) => {
         }
       );
       return res
-        .cookie("accessToken", accessToken, {
+        .cookie("accessTokenExpress", accessToken, {
           httpOnly: true,
           secure: false,
-          sameSite: "lax",
+          sameSite: "None",
         })
-        .cookie("refreshToken", refresh_Token, {
+        .cookie("refreshTokenExpress", refresh_Token, {
           httpOnly: true,
           secure: false,
-          sameSite: "lax",
+          sameSite: "None",
         })
         .status(200)
         .json({

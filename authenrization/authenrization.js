@@ -1,28 +1,67 @@
 const jwt = require("jsonwebtoken");
 
 const Authenrization = async (req, res, next) => {
-  myCookie = req.cookies.accessToken;
-  console.log("Cookies nhận được:", myCookie);
-  if (myCookie) {
-    console.log(`Cookie giá trị:`);
-  } else {
-    console.log('Không có cookie "myCookieName"!');
-  }
-  if (!myCookie) {
-    return res.status(401).json({ message: "Token không được cung cấp!" });
+  const TokenCookie = req.cookies.accessToken;
+  const RefreshCookie = req.cookies.refresh_Token;
+
+  // Kiểm tra Token Cookie
+  if (TokenCookie) {
+    try {
+      // Xác minh access token
+      const decoded = jwt.verify(TokenCookie, process.env.JWT_SECRET);
+
+      // Kiểm tra quyền admin
+      if (!decoded.admin) {
+        return res.status(403).json({ message: "Bạn không phải là admin" });
+      }
+
+      req.user = decoded; // Lưu thông tin user vào req
+      return next(); // Token hợp lệ, tiếp tục xử lý
+    } catch (err) {
+      if (RefreshCookie) {
+        try {
+          // Xác minh refresh token
+          const decoded = jwt.verify(
+            RefreshCookie,
+            process.env.REFRESH_JWT_SECRET
+          );
+
+          // Kiểm tra quyền admin từ refresh token
+          if (!decoded.admin) {
+            return res.status(403).json({ message: "Bạn không phải là admin" });
+          }
+
+          // Tạo access token mới từ refresh token
+          const newAccessToken = jwt.sign(
+            { id: decoded.id, admin: decoded.admin },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+          );
+
+          // Gửi lại access token mới qua cookie
+          res.cookie("accessToken", newAccessToken, {
+            httpOnly: true,
+            secure: false, // Bật `true` nếu sử dụng HTTPS
+            sameSite: "Strict",
+          });
+
+          req.user = decoded; // Lưu thông tin user vào req
+          return next(); // Tiếp tục xử lý
+        } catch (err) {
+          return res
+            .status(403)
+            .json({ message: "Refresh token không hợp lệ!" });
+        }
+      }
+    }
   }
 
-  try {
-    // Xác minh token
-    const decoded = await jwt.verify(myCookie, process.env.JWT_SECRET);
-    if (!decoded.admin) {
-      res.status(403).json("Bạn không phải là admin");
-    }
-    req.user = decoded;
-    next();
-  } catch (err) {
-    return res.status(403).json({ message: "Token không hợp lệ!" });
-  }
+  // Nếu access token không hợp lệ hoặc không có, kiểm tra Refresh Token
+
+  // Nếu không có token nào hợp lệ
+  return res
+    .status(401)
+    .json({ message: "Token không được cung cấp hoặc không hợp lệ!" });
 };
 
 module.exports = Authenrization;

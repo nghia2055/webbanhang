@@ -10,6 +10,9 @@ const cookieParser = require("cookie-parser");
 dotenv.config();
 
 const mongoose = require("mongoose");
+const { routefooter } = require("./route/footer");
+
+const routerOrder = require("./route/order/index");
 const dbURI = `mongodb+srv://dtn04999:${process.env.PASSWORD_MONGODB_ATLAS}@cluster0.jp8rc.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0`; // Địa chỉ MongoDB trên localhost
 
 // Kết nối MongoDB
@@ -26,7 +29,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: `*`,
+    origin: `${process.env.URL_NEXTJS}`,
+    credentials: true,
   })
 );
 
@@ -43,8 +47,10 @@ app.use("/", routeMenu);
 app.use("/", routeUser);
 app.use("/", routeProduct);
 app.use("/", routeCollection);
+app.use("/", routefooter);
+app.use("/", routerOrder);
 
 // Sever
-app.listen("8080", () => {
-  console.log(`sever đang chạy http://${"127.0.0.1"}:${8080} `);
+app.listen(8080, "localhost", () => {
+  console.log("Server is running on http://localhost:8080");
 });
