@@ -13,6 +13,7 @@ const mongoose = require("mongoose");
 const { routefooter } = require("./route/footer");
 
 const routerOrder = require("./route/order/index");
+const routerNotification = require("./route/notification");
 const dbURI = `mongodb+srv://dtn04999:${process.env.PASSWORD_MONGODB_ATLAS}@cluster0.jp8rc.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0`; // Địa chỉ MongoDB trên localhost
 
 // Kết nối MongoDB
@@ -49,6 +50,7 @@ app.use("/", routeProduct);
 app.use("/", routeCollection);
 app.use("/", routefooter);
 app.use("/", routerOrder);
+app.use("/", routerNotification);
 
 // Sever
 app.listen(8080, "localhost", () => {
