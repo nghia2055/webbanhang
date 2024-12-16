@@ -12,7 +12,6 @@ const footer = {
   },
 
   getfooter: async (req, res) => {
-    console.log(req.query);
     try {
       const data = await datafooter.findOne({ name: req.query.name });
 

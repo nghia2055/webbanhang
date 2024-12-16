@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 
 const refreshToken = async (req, res, next) => {
-  console.log(req.cookies);
   const cookie = req.cookies;
   if (!cookie) {
     res.status(403).json("Không có token");

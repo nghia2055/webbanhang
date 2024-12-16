@@ -2,7 +2,6 @@ const registerUser = require("../model/register");
 const bcrypt = require("bcryptjs");
 
 const register = async (req, res) => {
-  console.log(req.body);
   try {
     const salt = await bcrypt.genSalt(10);
     const hashed = await bcrypt.hash(req.body.password, salt);
