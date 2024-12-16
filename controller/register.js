@@ -2,6 +2,7 @@ const registerUser = require("../model/register");
 const bcrypt = require("bcryptjs");
 
 const register = async (req, res) => {
+  console.log(req.body);
   try {
     const salt = await bcrypt.genSalt(10);
     const hashed = await bcrypt.hash(req.body.password, salt);
@@ -16,7 +17,8 @@ const register = async (req, res) => {
     const user = await newUser.save();
     res.status(200).json(user);
   } catch (err) {
-    if (err.code === 11000) {
+    console.log(err);
+    if (err.keyValue.email) {
       // Kiểm tra lỗi trùng lặp
       return res.status(400).json("Email đã tồn tại");
     }
