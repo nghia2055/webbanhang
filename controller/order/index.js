@@ -13,7 +13,7 @@ const order = async (req, res) => {
         req.cookies.accessToken,
         process.env.JWT_SECRET
       );
-      userId = decoded._id; // Nếu có accessToken hợp lệ, lấy _id từ token
+      userId = decoded.id; // Nếu có accessToken hợp lệ, lấy _id từ token
     } catch (err) {
       if (err.name === "TokenExpiredError") {
         console.error("accessToken đã hết hạn");
@@ -26,7 +26,7 @@ const order = async (req, res) => {
               req.cookies.refresh_Token,
               process.env.REFRESH_JWT_SECRET
             );
-            userId = decodedRefreshToken._id; // Lấy _id từ refreshToken
+            userId = decodedRefreshToken.id; // Lấy _id từ refreshToken
           } catch (err) {
             // Nếu có lỗi khi giải mã refreshToken, bỏ qua và không làm gián đoạn chương trình
             // Không làm gián đoạn chương trình, vẫn cho phép đặt hàng với _id là null
@@ -38,7 +38,7 @@ const order = async (req, res) => {
 
   // Tạo và lưu đơn hàng, nếu có userId thì gán, nếu không thì để null
   const orderData = {
-    _id: userId, // Nếu có userId, thì gán _id, nếu không thì là null
+    id: userId, // Nếu có userId, thì gán _id, nếu không thì là null
     number,
     city,
     address,
