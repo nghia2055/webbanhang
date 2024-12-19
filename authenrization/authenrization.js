@@ -41,7 +41,7 @@ const Authenrization = async (req, res, next) => {
           // Gửi lại access token mới qua cookie
           res.cookie("accessToken", newAccessToken, {
             httpOnly: true,
-            secure: false, // Bật `true` nếu sử dụng HTTPS
+            secure: process.env.NODE_ENV === "production",
             sameSite: "Strict",
           });
 

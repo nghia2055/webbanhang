@@ -38,12 +38,12 @@ const login = async (req, res) => {
       return res
         .cookie("accessTokenExpress", accessToken, {
           httpOnly: true,
-          secure: false,
+          secure: process.env.NODE_ENV === "production",
           sameSite: "None",
         })
         .cookie("refreshTokenExpress", refresh_Token, {
           httpOnly: true,
-          secure: false,
+          secure: process.env.NODE_ENV === "production",
           sameSite: "None",
         })
         .status(200)
