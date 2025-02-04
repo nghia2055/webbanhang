@@ -19,9 +19,9 @@ const register = async (req, res) => {
     console.log(err);
     if (err.keyValue.email) {
       // Kiểm tra lỗi trùng lặp
-      return res.status(400).json("Email đã tồn tại");
+      return res.status(401).json("Email đã tồn tại");
     }
-    res.status(400).json("Người dùng đã tồn tại");
+    res.status(402).json("Người dùng đã tồn tại");
   }
 };
 
