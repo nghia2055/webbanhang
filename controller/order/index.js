@@ -37,7 +37,7 @@ const order = async (req, res) => {
   }
 
   // Tạo và lưu đơn hàng, nếu có userId thì gán, nếu không thì để null
-  const orderData = {
+  let orderData = {
     id: userId, // Nếu có userId, thì gán _id, nếu không thì là null
     number,
     city,
@@ -45,6 +45,12 @@ const order = async (req, res) => {
     ship,
     methodPay,
     product,
+  };
+
+  const order = JSON.parse(orderData["product"]);
+  orderData = {
+    ...orderData,
+    product: order,
   };
 
   try {
